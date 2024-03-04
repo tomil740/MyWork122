@@ -1,0 +1,117 @@
+    CREATE TABLE DeclareEntity(
+         declareId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+         date TEXT NOT NULL DEFAULT '2024-02-20',
+         workTime REAL NOT NULL,
+         daySumId TEXT NOT NULL,
+         FOREIGN KEY (daySumId) REFERENCES DaySumEntity(daySumId)
+    );
+    CREATE TABLE DaySumEntity(
+         daySumId TEXT  NOT NULL  PRIMARY KEY,
+         totalWork REAL  NOT NULL,
+         weekId TEXT  NOT NULL ,
+          FOREIGN KEY (weekId) REFERENCES WeekSumEntity(weekId)
+    );
+    CREATE TABLE WeekSumEntity(
+         weekId TEXT  NOT NULL  PRIMARY KEY ,
+         weekWork REAL  NOT NULL,
+         startDate TEXT  NOT NULL
+    );
+
+    CREATE TABLE TargetsEntity(
+         weekTarget REAL NOT NULL,
+         dayTarget REAL NOT NULL,
+         id INTEGER DEFAULT 1
+    );
+
+     CREATE TABLE WeekSumStatisticsEntity(
+             totalWork REAL NOT NULL,
+             totalWeeks INTEGER NOT NULL,
+             avgWeek REAL NOT NULL,
+             avgDay REAL NOT NULL ,
+             id INTEGER DEFAULT 1
+     );
+
+    insertWeekSumStatisticsEntity:
+    INSERT OR REPLACE
+    INTO WeekSumStatisticsEntity(
+    totalWork,
+    totalWeeks,
+    avgWeek,
+    avgDay,
+    id
+    )
+    VALUES(?, ?,? ,?,1);
+
+    insertTargetEntity:
+    INSERT OR REPLACE
+    INTO TargetsEntity(
+    weekTarget,
+    dayTarget,
+    id
+    )
+    VALUES (?,?,1);
+
+
+
+    insertDeclareEntity:
+    INSERT OR REPLACE
+    INTO DeclareEntity(
+        declareId,
+        date,
+        workTime,
+        daySumId
+    )
+    VALUES(?, ?, ?,  ?);
+
+
+    getTargetsObj:
+    SELECT * FROM TargetsEntity WHERE id = 1;
+
+    getStatisticsObj:
+        SELECT * FROM WeekSumStatisticsEntity WHERE id = 1;
+
+    getAllWeekSumFlow:
+    SELECT * FROM WeekSumEntity ORDER BY startDate DESC;
+
+    insertDaySumEntity:
+    INSERT OR REPLACE
+    INTO DaySumEntity(
+        daySumId,
+        totalWork,
+        weekId
+    )
+    VALUES(?, ?, ?);
+
+    insertWeekSumEntity:
+    INSERT OR REPLACE
+    INTO WeekSumEntity(
+        weekId,
+        weekWork,
+        startDate
+    )
+    VALUES(?, ?,  ?);
+
+    getDeclaresByDate:
+    SELECT * FROM DeclareEntity WHERE date = ?;
+
+    getLastDeclare:
+    SELECT * FROM DeclareEntity ORDER BY declareId DESC LIMIT 1;
+
+    getLastWeekSum:
+    SELECT * FROM WeekSumEntity ORDER BY weekId DESC LIMIT 1;
+
+    getWeekSumByDate:
+    SELECT * FROM WeekSumEntity WHERE weekId = :date;
+
+    getDaySumByWeekId:
+    SELECT * FROM DaySumEntity WHERE weekId = :theId;
+
+    getAllWeekSums:
+    SELECT * FROM WeekSumEntity;
+
+    getDeclareById:
+    SELECT * FROM DeclareEntity WHERE declareId =:theId;
+
+    deleteDeclareById:
+    DELETE FROM DeclareEntity WHERE declareId = :theId;
+
