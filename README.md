@@ -25,6 +25,8 @@ The app build with compose UI and material 3 components , with simple and clear 
 In general this working time tracking improve my efficiency and my general time management .
 But there is a problem , tracking this data is hard and annoying in order of getting the wanted conclusion I needed to recalculate every dya/week data which is not real reasonable…
 My app solves exactly that we will get an full image of our time efficiencyby click in alive updating framework to the most accurate data all the time. 
+  <br>
+  for the full app review : https://medium.com/@tomil0535264486/productive-time-manager-app-67cdba9d72a1
 </p>
 
 <h1>Under the hood :</h1>
